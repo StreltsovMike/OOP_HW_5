@@ -76,8 +76,12 @@ public class Main {
             commands.put("m", this::moveRobot);
         }
 
-        public Robot findRobot(Long id){
+        public Robot findRobot(Long id) throws CommandExecutionException {
             List<Robot> listRobots = map.getRobotList();
+            if (id > listRobots.size() || id < 1) {
+                throw new CommandExecutionException("Робота с таким  ID не существует");
+            }
+            
             for (int i = 0; i < listRobots.size(); i++) {
                 if(listRobots.get(i).getId() == id){
                     Robot robot = listRobots.get(i);
