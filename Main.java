@@ -20,6 +20,7 @@ public class Main {
         System.out.println("Добро пожаловать в игру!");
         System.out.println("...описание...");
 
+        RobotMapFactory robotMapFactory = new RobotMapFactory();
         DefoltRobotMap map;
         while (true) {
             System.out.println("Для создания карты введите 2 положительных числа через пробел");
@@ -28,7 +29,7 @@ public class Main {
                 int m = userInput.nextInt();
                 userInput.nextLine();
 
-                map = new DefoltRobotMap(n, m);
+                map = robotMapFactory.create(n, m);
                 break;
             } catch (RobotMapCreationException | InputMismatchException e) {
                 System.err.println("Возникла ошибка при создании карты: " + e.getMessage());
@@ -156,9 +157,6 @@ public class Main {
                 throw new CommandExecutionException("Недостаточно аргументов");
             }
 
-            // Long id = Long.parseLong(args[0]);
-            // Integer steps = Integer.parseInt(args[1]);
-
             DefoltRobot robot = findRobot(Long.parseLong(args[0]));
 
             try{
@@ -193,8 +191,5 @@ public class Main {
 
     }
 
-    // private void homework() {
-    //     // Доделать остальные команды move, change direction и list
-    // }
 
 }
