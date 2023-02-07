@@ -1,7 +1,9 @@
 package org.example.lesson1.example;
 
 import java.util.*;
-import org.example.lesson1.example.RobotMap.Robot;
+// import org.example.lesson1.example.RobotMap.Robot;
+
+import org.example.lesson1.example.DefoltRobotMap.DefoltRobot;
 
 public class Main {
 
@@ -18,7 +20,7 @@ public class Main {
         System.out.println("Добро пожаловать в игру!");
         System.out.println("...описание...");
 
-        RobotMap map;
+        DefoltRobotMap map;
         while (true) {
             System.out.println("Для создания карты введите 2 положительных числа через пробел");
             try {
@@ -26,7 +28,7 @@ public class Main {
                 int m = userInput.nextInt();
                 userInput.nextLine();
 
-                map = new RobotMap(n, m);
+                map = new DefoltRobotMap(n, m);
                 break;
             } catch (RobotMapCreationException | InputMismatchException e) {
                 System.err.println("Возникла ошибка при создании карты: " + e.getMessage());
@@ -76,15 +78,15 @@ public class Main {
             commands.put("m", this::moveRobot);
         }
 
-        public Robot findRobot(Long id) throws CommandExecutionException {
-            List<Robot> listRobots = map.getRobotList();
+        public DefoltRobot findRobot(Long id) throws CommandExecutionException {
+            List<DefoltRobot> listRobots = map.getRobotList();
             if (id > listRobots.size() || id < 1) {
                 throw new CommandExecutionException("Робота с таким  ID не существует");
             }
             
             for (int i = 0; i < listRobots.size(); i++) {
                 if(listRobots.get(i).getId() == id){
-                    Robot robot = listRobots.get(i);
+                    DefoltRobot robot = listRobots.get(i);
                     return robot;
                 }                 
             }
@@ -122,7 +124,7 @@ public class Main {
         }
 
         private String listRobots(String[] args) {
-            List<Robot> listRobots = map.getRobotList();
+            List<DefoltRobot> listRobots = map.getRobotList();
             for (int i = 0; i < listRobots.size(); i++) {
                 System.out.println(listRobots.get(i));
             } 
@@ -138,7 +140,7 @@ public class Main {
             String strDirection = args[1];
             
             Direction direction;
-            Robot robot = findRobot(id);
+            DefoltRobot robot = findRobot(id);
             if(strDirection.equals("t")){direction = Direction.TOP;}
             else if(strDirection.equals("r")){direction = Direction.RIGHT;}
             else if(strDirection.equals("b")){direction = Direction.BOTTOM;}
@@ -154,13 +156,13 @@ public class Main {
                 throw new CommandExecutionException("Недостаточно аргументов");
             }
 
-            Long id = Long.parseLong(args[0]);
-            Integer steps = Integer.parseInt(args[1]);
+            // Long id = Long.parseLong(args[0]);
+            // Integer steps = Integer.parseInt(args[1]);
 
-            Robot robot = findRobot(id);
+            DefoltRobot robot = findRobot(Long.parseLong(args[0]));
 
             try{
-                robot.move(steps);
+                robot.move(Integer.parseInt(args[1]));
             }catch(RobotMoveException e){
                 throw new CommandExecutionException(e.getMessage());
             }

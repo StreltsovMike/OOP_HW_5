@@ -2,9 +2,9 @@ package org.example.lesson1.example;
 
 public class RobotMoveException extends Exception {
 
-    private final RobotMap.Robot robot;
+    private final DefoltRobotMap.DefoltRobot robot;
 
-    public RobotMoveException(String message, RobotMap.Robot robot) {
+    public RobotMoveException(String message, DefoltRobotMap.DefoltRobot robot) {
         super(message);
         this.robot = robot;
     }
